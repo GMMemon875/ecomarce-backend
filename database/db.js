@@ -1,11 +1,11 @@
 import pkg from "pg";
 const { Client } = pkg;
 
-const client = new Client({
-  user: process.env.BD_USER,
+const database = new Client({
+  user: "postgres",
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
+  password: "memon786",
   port: process.env.DB_PORT,
 });
 

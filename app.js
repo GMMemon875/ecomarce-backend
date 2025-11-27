@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
+import { createTables } from "./utils/createTables.js";
+import { errorMidleware } from "./Middlewares/errorMiddlewares.js";
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -25,6 +27,9 @@ app.use(
     useTempFiles: true,
   })
 );
+
+createTables();
+app.use(errorMidleware);
 
 // Routes (yahan routes import karo agar hun)
 /// import userRoutes from "./routes/userRoutes.js";
