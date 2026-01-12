@@ -1,7 +1,5 @@
-import { promises } from "nodemailer/lib/xoauth2";
-
-export const catchAsyncErrors = async (theFuntion) => {
+export const catchAsyncErrors = (theFunction) => {
   return async (req, res, next) => {
-    promises.resolve(theFuntion(req, res, next)).catch(next);
+    Promise.resolve(theFunction(req, res, next)).catch(next);
   };
 };

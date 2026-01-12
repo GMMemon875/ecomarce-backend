@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 import { createTables } from "./utils/createTables.js";
 import { errorMidleware } from "./Middlewares/errorMiddlewares.js";
+import authrouter from "./routes/authrouters.js";
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -27,6 +28,7 @@ app.use(
     useTempFiles: true,
   })
 );
+app.use("/api/v1/auth", authrouter);
 
 createTables();
 app.use(errorMidleware);
