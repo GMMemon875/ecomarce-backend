@@ -72,25 +72,23 @@ export const loginUser = catchAsyncErrors(async (req, res, next) => {
 
 /* ================= LOGOUT ================= */
 export const logout = catchAsyncErrors(async (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    message: "Logout successful",
-  });
+  res
+    .status(200)
+    .cookie("token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    })
+    .json({
+      success: true,
+      message: "Logged out successfully",
+    });
 });
 
 /* ================= GET USER ================= */
 export const getUser = catchAsyncErrors(async (req, res, next) => {
-  const user = await database.query(
-    "SELECT id, name, email FROM users WHERE id = $1",
-    [req.user.id]
-  );
-
-  if (user.rows.length === 0) {
-    return next(new ErrorHandler("User not found", 404));
-  }
-
+  const { user } = req;
   res.status(200).json({
     success: true,
-    user: user.rows[0],
+    user,
   });
 });
